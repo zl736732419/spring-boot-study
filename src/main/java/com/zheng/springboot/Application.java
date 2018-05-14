@@ -1,7 +1,10 @@
 package com.zheng.springboot;
 
-import org.springframework.boot.SpringApplication;
+import org.springframework.boot.Banner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.ApplicationListener;
 
 /**
  * spring boot入口
@@ -17,6 +20,19 @@ public class Application {
     public static void main(String[] args) {
         // 彻底禁用devtools重新加载功能
 //        System.setProperty("spring.devtools.restart.enabled", "false");
-        SpringApplication.run(Application.class, args);
+//        SpringApplication.run(Application.class, args);
+        
+        // 流式编程
+        new SpringApplicationBuilder()
+                .sources(Application.class)
+                .bannerMode(Banner.Mode.CONSOLE)
+                .listeners(new ApplicationListener<ApplicationEvent>() {
+                    @Override
+                    public void onApplicationEvent(ApplicationEvent event) {
+                        System.out.println("listener: " + event.toString());
+                    }
+                })
+                .run(args);
+        
     }
 }
