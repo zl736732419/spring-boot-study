@@ -47,11 +47,147 @@ profile环境通过spring.profiles.active参数指定，java -jar demo.jar --spr
 需要注意的是如果在使用profile时指定了spring.config.location，那么要想使指定的location中的配置文件对profile生效，location
 只能设置为目录的形式，而不能指定配置文件路径
 也可以通过编码指定运行环境，主要是为了方便测试
+```
 new SpringApplicationBuilder()
     ...
     .profiles("dev")
     .run(args);
-
+```
 在配置文件中也可以通过${var_name}直接使用前面定义的变量
 
 
+####yaml配置文件
+yaml配置文件目录与默认配置文件一样，默认都是在
+1. 当前目录/config
+2. 当前目录
+3. classpath/config
+4. classpath
+
+spring boot中提供了两种加载器，用于加载yaml配置参数
+YamlPropertiesFactoryBean 将yaml配置参数加载成properties
+YamlMapFactoryBean 将yaml配置参数加载成map形式
+
+配置文件名称：application.yaml
+获取yaml配置文件中的配置可以采用@ConfigurationProperties的方式
+比如存在下面的配置
+```my.servers[0]=dev.example.com
+   my.servers[1]=another.example.com
+```
+   
+可以定义实体映射到配置上
+```
+@ConfigurationProperties(prefix="my")
+   public class Config {
+   	private List<String> servers = new ArrayList<String>();
+   	public List<String> getServers() {
+   		return this.servers;
+   	}
+}
+```
+
+如果要引用该配置对象，可以有两种方式：
+1. 通过@Component将配置实体手动加入到spring容器中
+2. 通过spring boot @Configuration @EnableConfigurationProperties(Config.class)自动加入到spring容器中
+```
+@Configuration
+   @EnableConfigurationProperties(AcmeProperties.class)
+   public class MyConfiguration {
+}
+```
+通过上面配置后，配置实体可以直接在其他bean中被引用了
+```
+@Service
+public class MyService {
+    @Autowired
+    private Config config;
+}
+```
+#####将配置作用到第三方bean中
+我们可以将本地的配置作用于第三方jar包中的实体上，并将其交由spring容器管理
+@ConfigurationProperties(prefix = "another")
+@Bean
+public AnotherComponent anotherComponent() {
+	...
+}
+
+#####宽松匹配
+采用@ConfigurationProperties注解可以使用宽松的属性绑定方式，
+spring boot 不严格要求配置的名称与给定的属性名完全一样，可以有几种不同的表达方式
+比如属性名firstName可以与配置文件中的first_name,firstName,first-name三种形式成功匹配
+
+#####映射map
+```
+@ConfigurationProperties("acme")
+public class AcmeProperties {
+	private final Map<String, MyPojo> map = new HashMap<>();
+	public Map<String, MyPojo> getMap() {
+		return this.map;
+	}
+}
+配置文件如下：
+acme:
+  map:
+    key1:
+      name: my name 1
+      description: my description 1
+---
+spring:
+  profiles: dev
+acme:
+  map:
+    key1:
+      name: dev name 1
+    key2:
+      name: dev name 2
+      description: dev description 2
+```
+当profile=dev时，AcmeProperties.map包含两个entry:key1对应name=dev name 1,description=my description 1
+的server, key2对应name=dev name 2, description=dev description 2的server
+
+#####对duration日期类型的转换
+spring boot实现了对Duration类型的日期类型配置的转换
+```
+@ConfigurationProperties("app.system")
+public class AppSystemProperties {
+    @DurationUnit(ChronoUnit.SECONDS)
+    private Duration sessionTimeout = Duration.ofSeconds(30);
+    
+    public Duration getSessionTimeout() {
+        return this.sessionTimeout;
+    }
+
+    public void setSessionTimeout(Duration sessionTimeout) {
+        this.sessionTimeout = sessionTimeout;
+    }
+}
+配置文件：
+app.system.sessionTimeout=500s
+```
+在配置文件中设置Duration类型的参数时可以指定单位：
+ns nanoseconds
+ms milliseconds
+s seconds
+m minutes
+h hours
+d days
+如果没有指定单位，则根据实体中指定的@DurationUnit来进行判断
+
+#####配置验证
+spring boot内部实现了JSR-303验证框架，可以对给定的配置进行验证
+```
+@ConfigurationProperties(prefix="acme")
+@Validated
+public class AcmeProperties {
+	@NotNull
+	private InetAddress remoteAddress;
+	// ... getters and setters
+}
+```
+当然也可以自己实现验证框架：
+具体参考：
+https://github.com/spring-projects/spring-boot/tree/v2.0.2.RELEASE/spring-boot-samples/spring-boot-sample-property-validation
+#####@ConfigurationProperties vs. @Value
+                  ConfigurationProperties    Value
+松散绑定              yes                       no
+Meta-data support    yes                       no
+SpEL evaluation      no                        yes
