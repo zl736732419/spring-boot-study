@@ -22,7 +22,7 @@ public class Application {
         // 彻底禁用devtools重新加载功能
 //        System.setProperty("spring.devtools.restart.enabled", "false");
 //        SpringApplication.run(Application.class, args);
-        
+
         // 流式编程
         new SpringApplicationBuilder()
                 .sources(Application.class)
