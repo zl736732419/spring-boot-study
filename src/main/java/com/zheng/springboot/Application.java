@@ -27,7 +27,7 @@ public class Application {
                 .bannerMode(Banner.Mode.CONSOLE)
                 .listeners((event) -> System.out.println("listener: " + event.toString()))
                 // 通过编程方式指定运行环境
-                .profiles("development")
+                .profiles("production1")
                 .run(args);
         
     }

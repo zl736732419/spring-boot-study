@@ -57,6 +57,7 @@ public class Server {
     @Override
     public String toString() {
         String time = Optional.ofNullable(upTime).isPresent() ? upTime.toString() : null;
+//        String time = null;
         return new ToStringBuilder(this).append("url", url)
                 .append("name", name)
                 .append("address", address)

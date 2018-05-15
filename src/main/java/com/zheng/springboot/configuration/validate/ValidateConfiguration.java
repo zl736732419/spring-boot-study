@@ -15,5 +15,4 @@ public class ValidateConfiguration {
         return new CustomServerValidator();
     }
     
-    
 }

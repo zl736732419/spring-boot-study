@@ -27,7 +27,7 @@ public class CustomServerValidator implements Validator {
             return;
         }
         String url = server.getUrl();
-        if (url.indexOf("http") != 0) {
+        if (!Optional.ofNullable(url).isPresent() || url.indexOf("http") != 0) {
             errors.rejectValue("url", "invalid url");
         }
     }
