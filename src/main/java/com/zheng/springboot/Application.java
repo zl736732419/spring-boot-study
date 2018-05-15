@@ -3,8 +3,6 @@ package com.zheng.springboot;
 import org.springframework.boot.Banner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.context.ApplicationEvent;
-import org.springframework.context.ApplicationListener;
 
 /**
  * spring boot入口
@@ -27,12 +25,9 @@ public class Application {
         new SpringApplicationBuilder()
                 .sources(Application.class)
                 .bannerMode(Banner.Mode.CONSOLE)
-                .listeners(new ApplicationListener<ApplicationEvent>() {
-                    @Override
-                    public void onApplicationEvent(ApplicationEvent event) {
-                        System.out.println("listener: " + event.toString());
-                    }
-                })
+                .listeners((event) -> System.out.println("listener: " + event.toString()))
+                // 通过编程方式指定运行环境
+                .profiles("development")
                 .run(args);
         
     }

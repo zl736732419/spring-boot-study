@@ -1,0 +1,35 @@
+server:
+    name: zl200
+#    up-time: 500s
+acme:
+    first-name: zl
+    map:
+        key1:
+            name: my name 1
+            address: my description 1
+
+
+---
+spring:
+    profiles: development
+    
+server:
+    name: zl201
+#    upTime: 2017-10-30 09:30:30
+acme:
+    firstName: ll
+    map:
+        key1:
+            name: dev name 1
+        key2:
+            name: dev name 2
+            address: dev description 2
+---
+spring:
+    profiles: production
+
+server:
+    name: zl202
+#    upTime: 30m
+acme:
+    first_name: zz

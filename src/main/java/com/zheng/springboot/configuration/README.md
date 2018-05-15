@@ -46,5 +46,12 @@ name=dev
 profile环境通过spring.profiles.active参数指定，java -jar demo.jar --spring.profiles.active=dev
 需要注意的是如果在使用profile时指定了spring.config.location，那么要想使指定的location中的配置文件对profile生效，location
 只能设置为目录的形式，而不能指定配置文件路径
+也可以通过编码指定运行环境，主要是为了方便测试
+new SpringApplicationBuilder()
+    ...
+    .profiles("dev")
+    .run(args);
 
 在配置文件中也可以通过${var_name}直接使用前面定义的变量
+
+
