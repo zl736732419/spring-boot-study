@@ -17,6 +17,7 @@ import org.springframework.context.ApplicationListener;
  */
 @SpringBootApplication
 public class Application {
+
     public static void main(String[] args) {
         // 彻底禁用devtools重新加载功能
 //        System.setProperty("spring.devtools.restart.enabled", "false");
