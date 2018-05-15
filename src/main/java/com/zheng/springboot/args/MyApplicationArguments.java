@@ -15,8 +15,10 @@ import java.util.Set;
  */
 @Component
 public class MyApplicationArguments {
+    
     @Autowired
     public MyApplicationArguments(ApplicationArguments args) {
+        System.out.println("applicationArguments:");
         Set<String> optionNames = args.getOptionNames();
         System.out.println("optionNames: ");
         List<String> values;
