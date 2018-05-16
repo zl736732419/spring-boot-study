@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @EnableAutoConfiguration
 public class HelloWorldApp {
     
-    @RequestMapping("/")
+    @RequestMapping("/hello")
     public String home() {
         return "hello world";
     }
