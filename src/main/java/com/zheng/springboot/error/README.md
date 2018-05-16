@@ -30,3 +30,4 @@ src/
 #####3.通过MyErrorViewResolver处理复杂的错误映射逻辑，根据status和Request跳转到不同的错误页面
 #####4.通过扩展BasicErrorController，目前springboot默认的错误处理机制
 对于text/html类型的请求，返回whitelabel错误页面(位于ErrorMvcAutoConfiguration)，对于其他类型请求返回json错误信息
+#####5.通过ErrorPageRegistrar实现，主要是用于非springmvc环境，通过filter来进行错误处理
