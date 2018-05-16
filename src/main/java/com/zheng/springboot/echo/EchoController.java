@@ -1,4 +1,4 @@
-package com.zheng.springboot.controller;
+package com.zheng.springboot.echo;
 
 import com.zheng.springboot.service.EchoService;
 import org.springframework.beans.factory.annotation.Autowired;
