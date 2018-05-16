@@ -20,14 +20,14 @@ public class Application {
         // 彻底禁用devtools重新加载功能
 //        System.setProperty("spring.devtools.restart.enabled", "false");
 //        SpringApplication.run(Application.class, args);
-
+        
         // 流式编程
         new SpringApplicationBuilder()
                 .sources(Application.class)
                 .bannerMode(Banner.Mode.CONSOLE)
                 .listeners((event) -> System.out.println("listener: " + event.toString()))
                 // 通过编程方式指定运行环境
-                .profiles("production1")
+                .profiles("development")
                 .run(args);
         
     }
