@@ -3,11 +3,13 @@ package com.zheng.springboot.mybatis.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.github.miemiedev.mybatis.paginator.domain.Paginator;
+import com.zheng.springboot.mybatis.constants.AppConstants;
 import org.springframework.util.CollectionUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 
 /**
  * 用来序列化传输的时候传输PageList
@@ -17,6 +19,7 @@ import java.util.Collection;
  * @see PageList
  */
 public class MyPageList<T> implements Serializable {
+    
     /**
      * 序列化ID
      */
@@ -42,7 +45,7 @@ public class MyPageList<T> implements Serializable {
      * 默认无参数构造函数
      */
     public MyPageList() {
-        this(new ArrayList<T>(), new Paginator(Constants.PAGINATOR_DEFAULT_PAGE, Constants.PAGINATOR_DEFAULT_LIMIT, 0));
+        this(new ArrayList<T>(), new Paginator(AppConstants.DEFAULT_PAGE, AppConstants.DEFAULT_LIMIT, 0));
     }
 
     /**
@@ -203,15 +206,15 @@ public class MyPageList<T> implements Serializable {
      */
     public static <T> PageList<T> convertPageList(MyPageList<T> myPageList) {
         if (myPageList == null) {
-            return new PageList(new PageList(new Paginator(Constants.PAGINATOR_DEFAULT_PAGE, Constants.PAGINATOR_DEFAULT_LIMIT, 0)));
+            return new PageList(new PageList(new Paginator(AppConstants.DEFAULT_PAGE, AppConstants.DEFAULT_LIMIT, 0)));
         }
 
         Collection<T> items = myPageList.getItems();
-        if (items == null) {
-            items = new ArrayList<T>();
+        if (!Optional.ofNullable(items).isPresent()) {
+            items = new ArrayList<>();
         }
 
-        PageList<T> pageList = new PageList<T>(items, myPageList.getPaginator());
+        PageList<T> pageList = new PageList<>(items, myPageList.getPaginator());
         return pageList;
     }
 }

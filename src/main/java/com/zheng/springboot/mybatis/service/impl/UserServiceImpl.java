@@ -1,12 +1,18 @@
 package com.zheng.springboot.mybatis.service.impl;
 
-import com.zheng.springboot.configuration.yaml.User;
-import com.zheng.springboot.mybatis.dao.UserDao;
+import com.github.miemiedev.mybatis.paginator.domain.PageList;
+import com.zheng.springboot.mybatis.constants.AppConstants;
 import com.zheng.springboot.mybatis.domain.MyPageBounds;
 import com.zheng.springboot.mybatis.domain.MyPageList;
+import com.zheng.springboot.mybatis.domain.User;
+import com.zheng.springboot.mybatis.filter.UserFilter;
+import com.zheng.springboot.mybatis.mapper.UserMapper;
 import com.zheng.springboot.mybatis.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
+import java.util.Optional;
 
 /**
  * @Author zhenglian
@@ -14,32 +20,52 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserServiceImpl implements UserService {
-    
     @Autowired
-    private UserDao userDao;
+    private UserMapper userMapper;
     
     @Override
     public User findById(Integer id) {
-        return userDao.findById(id);
+        return userMapper.findById(id);
     }
 
     @Override
     public int save(User user) {
-        return ;
+        if (!Optional.ofNullable(user).isPresent()) {
+            return 0;
+        }
+        return userMapper.save(user);
     }
 
     @Override
     public int deleteById(Integer id) {
-        return 0;
+        if (!Optional.ofNullable(id).isPresent()) {
+            return 0;   
+        }
+        return userMapper.deleteById(id);
     }
 
     @Override
     public int update(User user) {
-        return 0;
+        if (!Optional.ofNullable(user).isPresent()) {
+            return 0;
+        }
+        return userMapper.update(user);
     }
 
     @Override
-    public MyPageList<User> findByPageBounds(MyPageBounds pageBounds) {
-        return null;
+    public MyPageList<User> findByPage(UserFilter userFilter, MyPageBounds pageBounds) {
+        if (!Optional.ofNullable(userFilter).isPresent()) {
+            userFilter = new UserFilter();
+        }
+        if (!Optional.ofNullable(pageBounds).isPresent()) {
+            pageBounds = new MyPageBounds(AppConstants.DEFAULT_PAGE, AppConstants.DEFAULT_LIMIT);
+        }
+
+        PageList<User> pageList = userMapper.findByPage(userFilter, pageBounds.getPageBounds());
+        if (CollectionUtils.isEmpty(pageList)) {
+            return null;
+        }
+        
+        return new MyPageList<>(pageList);
     }
 }

@@ -83,12 +83,51 @@
             <artifactId>mybatis-paginator</artifactId>
             <version>1.2.10</version>
         </dependency>
+       
+        
+        <!-- db -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
-        
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.0.18</version>
+        </dependency>
+        <!--
+        1. 自动创建datasource，如果没有设置的话
+        2. 执行spring.datasource.schema初始化数据库建表DDL
+        3. 执行spring.datasource.data初始化数据库数据
+        4. spring.datasource.initialize=true|false 是否执行数据库初始化工作
+        5. spring.datasource.continueOnError＝true|false 有了错误是否继续执行
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
 
+        <!--test dependency-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+        
+        <!--gson-->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+        </dependency>
+        
     </dependencies>
 
     <build>

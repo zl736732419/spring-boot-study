@@ -1,7 +1,6 @@
 package com.zheng.springboot.profiles.service.impl;
 
 import com.zheng.springboot.profiles.service.HelloService;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 /**
@@ -9,7 +8,7 @@ import org.springframework.stereotype.Service;
  * @Author zhenglian
  * @Date 2018/5/16 9:08
  */
-@Profile("development")
+//@Profile("development")
 @Service
 public class DevelopmentHelloService implements HelloService {
     @Override

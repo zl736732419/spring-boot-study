@@ -14,6 +14,8 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
  * 
  * @ServletComponentScan 用于自动注册@WebServlet,@WebFilter,@WebListener
  * 
+ * @MapperScan自动扫描Mapper
+ * 
  * @Author zhenglian
  * @Date 2018/5/14 11:19
  */
