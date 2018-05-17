@@ -12,7 +12,7 @@ import java.io.IOException;
  * @Author zhenglian
  * @Date 2018/5/17 13:46
  */
-@WebServlet
+@WebServlet(urlPatterns = "/servlet02")
 public class MyServlet02 extends HttpServlet {
 
     @Override
