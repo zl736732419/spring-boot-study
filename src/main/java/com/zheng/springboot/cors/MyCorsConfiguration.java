@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * 设置cors跨域访问
  */
 @Configuration
-public class MyConfiguration {
+public class MyCorsConfiguration {
 
 	@Bean
     public WebMvcConfigurer corsConfigurer() {
