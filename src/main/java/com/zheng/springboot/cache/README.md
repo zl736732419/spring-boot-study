@@ -16,6 +16,20 @@ Caffeine
 Simple
 None
 ```
+
+各个缓存的实现对应的CacheManager
+```
+CacheManager	    描述
+SimpleCacheManager	使用简单的Collection来存储缓存，主要用来测试用途
+ConcurrentMapCacheManager	使用ConcurrentMap来存储
+NoOpCacheManager	仅测试用途，不会市级存储缓存
+EhCacheCacheManager	使用EhCache作为缓存技术
+GuavaCacheManager	使用Google Guava的GuavaCache作为缓存技术
+HazelcastCacheManager	使用Hazelcast作为缓存技术
+JCacheCacheManager	支持JCache(JSR-107)标准的实现作为缓存技术，如Apache Commons JCS
+RedisCacheManager	使用Redis作为缓存技术
+```
+
 这里我将实现jcache, ehcache, redis, simple, None几种方式
 
 需要引入spring-boot-starter-cache依赖
