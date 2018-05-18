@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
     
-    @Cacheable
+    @Cacheable(value = "user", key = "#id")
     @Override
     public User findById(Integer id) {
         return userMapper.findById(id);
@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
      * @param user
      * @return
      */
-    @CachePut
+    @CachePut(value = "user", key = "#user.id")
     @Override
     public int save(User user) {
         if (!Optional.ofNullable(user).isPresent()) {
@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
      * @param id
      * @return
      */
-    @CacheEvict
+    @CacheEvict(value = "user", key = "#id")
     @Override
     public int deleteById(Integer id) {
         if (!Optional.ofNullable(id).isPresent()) {
@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
      * @param user
      * @return
      */
-    @CachePut
+    @CachePut(value = "user", key="#user.id")
     @Override
     public int update(User user) {
         if (!Optional.ofNullable(user).isPresent()) {
