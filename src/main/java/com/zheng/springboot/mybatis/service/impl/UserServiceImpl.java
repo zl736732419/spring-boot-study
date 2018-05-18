@@ -9,6 +9,10 @@ import com.zheng.springboot.mybatis.filter.UserFilter;
 import com.zheng.springboot.mybatis.mapper.UserMapper;
 import com.zheng.springboot.mybatis.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -19,15 +23,23 @@ import java.util.Optional;
  * @Date 2018/5/17 16:14
  */
 @Service
+@CacheConfig(cacheNames = "user")
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
     
+    @Cacheable
     @Override
     public User findById(Integer id) {
         return userMapper.findById(id);
     }
 
+    /**
+     * 添加用户时，会同时添加到缓存中
+     * @param user
+     * @return
+     */
+    @CachePut
     @Override
     public int save(User user) {
         if (!Optional.ofNullable(user).isPresent()) {
@@ -36,6 +48,12 @@ public class UserServiceImpl implements UserService {
         return userMapper.save(user);
     }
 
+    /**
+     * 删除用户时会删除缓存中的记录
+     * @param id
+     * @return
+     */
+    @CacheEvict
     @Override
     public int deleteById(Integer id) {
         if (!Optional.ofNullable(id).isPresent()) {
@@ -44,6 +62,12 @@ public class UserServiceImpl implements UserService {
         return userMapper.deleteById(id);
     }
 
+    /**
+     * 更新时会同时更新缓存中的结果
+     * @param user
+     * @return
+     */
+    @CachePut
     @Override
     public int update(User user) {
         if (!Optional.ofNullable(user).isPresent()) {

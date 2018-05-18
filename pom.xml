@@ -128,7 +128,6 @@
             <artifactId>gson</artifactId>
         </dependency>
         
-        
         <!--redis-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -141,6 +140,11 @@
         </dependency>
 
 
+        <!--cache-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
 
     </dependencies>
 
