@@ -31,14 +31,14 @@ public class JedisConfiguration {
     @Autowired
     private JedisPooledConfig pooledConfig;
     
-//    @Autowired
+    @Autowired
     private JedisStandaloneConfig jedisStandaloneConfig;
 
     /**
      * 连接redis集群需要做的配置
      * @return
      */
-    @Autowired
+//    @Autowired
     private JedisClusterConfig jedisClusterConfig;
 
     /**
@@ -86,9 +86,9 @@ public class JedisConfiguration {
     @Bean(name = "redisTemplate")
     public RedisTemplate redisTemplate() {
         // 集群连接工厂
-        JedisConnectionFactory factory = convertJedisClusterConnectionFactory();
+//        JedisConnectionFactory factory = convertJedisClusterConnectionFactory();
         // 单节点连接工厂
-//        JedisConnectionFactory factory = convertJedisStandaloneConnectionFactory();
+        JedisConnectionFactory factory = convertJedisStandaloneConnectionFactory();
         StringRedisTemplate template = new StringRedisTemplate(factory);
         return template;
     }
