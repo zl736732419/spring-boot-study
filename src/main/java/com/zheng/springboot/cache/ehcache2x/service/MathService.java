@@ -1,4 +1,4 @@
-package com.zheng.springboot.cache;
+package com.zheng.springboot.cache.ehcache2x.service;
 
 /**
  * @Author zhenglian

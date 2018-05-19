@@ -33,7 +33,7 @@
         diskPersistent ： 是否持久化磁盘缓存,当这个属性的值为true时，系统在初始化的时候会在磁盘中查找文件名为cache名称，
         后缀名为index的的文件，如CACHE_FUNC.index 
         这个文件中存放了已经持久化在磁盘中的cache的index，找到后把cache加载到内存。要想把cache真正持久化到磁盘，写程序时必须注意，
-        在是用net.sf.ehcache.Cache的void put (Element element)方法后要使用void flush()方法。
+        在是用net.sf.ehcache2x.Cache的void put (Element element)方法后要使用void flush()方法。
        
        以上时间值都是以秒作为单位的。 
         

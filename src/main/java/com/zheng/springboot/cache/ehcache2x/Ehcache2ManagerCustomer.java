@@ -1,11 +1,8 @@
-package com.zheng.springboot.cache.ehcache;
+package com.zheng.springboot.cache.ehcache2x;
 
 import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
 /**
@@ -13,21 +10,22 @@ import org.springframework.core.io.ClassPathResource;
  * @Author zhenglian
  * @Date 2018/5/18 17:41
  */
-@Configuration
-@EnableCaching
-public class EhcacheManagerCustomer {
+//@Configuration
+//@EnableCaching
+public class Ehcache2ManagerCustomer {
     
-    @Bean
+//    @Bean
     public EhCacheManagerFactoryBean ehCacheManagerFactoryBean() {
         EhCacheManagerFactoryBean factory = new EhCacheManagerFactoryBean();
-        factory.setConfigLocation(new ClassPathResource("cache/ehcache.xml"));
+        factory.setConfigLocation(new ClassPathResource("cache/ehcache2.xml"));
         factory.setShared(true);
         factory.afterPropertiesSet();
         return factory;
     }
     
-    @Bean
+//    @Bean
     public CacheManager cacheManager() {
-        return new EhCacheCacheManager(ehCacheManagerFactoryBean().getObject());
+        EhCacheCacheManager cacheManager = new EhCacheCacheManager(ehCacheManagerFactoryBean().getObject());
+        return cacheManager;
     }
 }
