@@ -35,4 +35,10 @@ public class DBUserController {
         userService.save(user);
         return user;
     }
+
+    @GetMapping("/delete/{userId}")
+    public String delete(@PathVariable Integer userId) {
+        userService.deleteById(userId);
+        return "ok";
+    }
 }

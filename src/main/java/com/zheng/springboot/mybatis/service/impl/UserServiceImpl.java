@@ -11,7 +11,6 @@ import com.zheng.springboot.mybatis.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -39,7 +38,6 @@ public class UserServiceImpl implements UserService {
      * @param user
      * @return
      */
-    @CachePut(value = "user", key = "#user.id")
     @Override
     public int save(User user) {
         if (!Optional.ofNullable(user).isPresent()) {
@@ -67,7 +65,7 @@ public class UserServiceImpl implements UserService {
      * @param user
      * @return
      */
-    @CachePut(value = "user", key="#user.id")
+    @CacheEvict(value = "user", key="#user.id")
     @Override
     public int update(User user) {
         if (!Optional.ofNullable(user).isPresent()) {
