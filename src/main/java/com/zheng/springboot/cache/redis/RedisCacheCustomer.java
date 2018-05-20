@@ -68,8 +68,8 @@ public class RedisCacheCustomer extends CachingConfigurerSupport {
         
         RedisCacheConfiguration configuration = RedisCacheConfiguration.defaultCacheConfig()
                 .entryTtl(ttl);
-        if (!Optional.ofNullable(cacheNullValues).isPresent()
-                || !cacheNullValues) {
+        if (Optional.ofNullable(cacheNullValues).isPresent()
+                && !cacheNullValues) {
             configuration = configuration.disableCachingNullValues();
         }
         return configuration.serializeValuesWith(valuePair);

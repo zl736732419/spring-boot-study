@@ -30,7 +30,8 @@ public class UserServiceImpl implements UserService {
     @Cacheable(value = "user", key = "#id")
     @Override
     public User findById(Integer id) {
-        return userMapper.findById(id);
+        User user = userMapper.findById(id);
+        return user;
     }
 
     /**
