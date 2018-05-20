@@ -2,7 +2,6 @@ package com.zheng.springboot.message.rabbitmq;
 
 import com.rabbitmq.client.Channel;
 import org.springframework.amqp.core.Message;
-import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
@@ -21,14 +20,12 @@ public class RabbitmqReceiver {
     }
     
     @RabbitListener(queues = {"topic.message"})
-    @RabbitHandler
     public void topicMessage(Message message,  Channel channel) throws IOException {
         channel.basicAck(message.getMessageProperties().getDeliveryTag(), true);
         System.out.println("received: " + new String(message.getBody()));
     }
     
     @RabbitListener(queues = {"fanout.queue1", "fanout.queue2"})
-    @RabbitHandler
     public void fanoutMessage(Message message,  Channel channel) throws IOException {
         channel.basicAck(message.getMessageProperties().getDeliveryTag(), true);
         System.out.println("received: " + new String(message.getBody()));

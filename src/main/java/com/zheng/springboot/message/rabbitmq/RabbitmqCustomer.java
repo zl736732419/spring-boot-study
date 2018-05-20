@@ -3,6 +3,7 @@ package com.zheng.springboot.message.rabbitmq;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
  * @Date 2018/5/20 11:22
  */
 @Configuration
+@EnableRabbit
 public class RabbitmqCustomer {
 
     @Autowired
