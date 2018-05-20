@@ -1,7 +1,7 @@
 package com.zheng.springboot.message.rabbitmq;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
@@ -30,7 +30,7 @@ public class RabbitmqCustomer {
      */
     @Bean
     public AmqpTemplate amqpTemplate() {
-        Logger log = LoggerFactory.getLogger(RabbitmqCustomer.class);
+        Log log = LogFactory.getLog(RabbitmqCustomer.class);
         // 使用jackson 消息转换器
         rabbitTemplate.setMessageConverter(new Jackson2JsonMessageConverter());
 
@@ -38,15 +38,16 @@ public class RabbitmqCustomer {
         rabbitTemplate.setMandatory(true);
         rabbitTemplate.setReturnCallback((message, replyCode, replyText, exchange, routingKey) -> {
             String correlationId = message.getMessageProperties().getCorrelationIdString();
-            log.debug("消息：{} 发送失败, 应答码：{} 原因：{} 交换机: {}  路由键: {}", correlationId, replyCode, replyText, exchange, routingKey);
+            log.debug("消息：" + correlationId + " 发送失败, 应答码：" + replyCode + " 原因：" + replyText + " 交换机: " 
+                    + exchange + "  路由键: " + routingKey);
         });
 
         // 消息确认 需要配置   publisher-confirms: true
         rabbitTemplate.setConfirmCallback((correlationData, ack, cause) -> {
             if (ack) {
-                log.debug("消息发送到exchange成功,id: {}", correlationData);
+                log.debug("消息发送到exchange成功,id: " + correlationData);
             } else {
-                log.debug("消息发送到exchange失败,原因: {}", cause);
+                log.debug("消息发送到exchange失败,原因: " + cause);
             }
         });
         return rabbitTemplate;
