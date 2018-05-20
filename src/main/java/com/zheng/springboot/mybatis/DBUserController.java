@@ -30,7 +30,8 @@ public class DBUserController {
     }
 
     @GetMapping("/create/{username}/{password}/{age}")
-    public User create(@PathVariable String username, String password, Integer age) {
+    public User create(@PathVariable String username, @PathVariable String password, 
+                       @PathVariable Integer age) {
         User user = new User(username, password, age);
         userService.save(user);
         return user;

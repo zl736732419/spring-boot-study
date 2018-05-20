@@ -1,8 +1,10 @@
 package com.zheng.springboot.message.rabbitmq;
 
 import com.rabbitmq.client.Channel;
+import com.zheng.springboot.mybatis.domain.User;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -22,7 +24,10 @@ public class RabbitmqReceiver {
     @RabbitListener(queues = {"topic.message"})
     public void topicMessage(Message message,  Channel channel) throws IOException {
         channel.basicAck(message.getMessageProperties().getDeliveryTag(), true);
-        System.out.println("received: " + new String(message.getBody()));
+
+        User user = (User) new Jackson2JsonMessageConverter().fromMessage(message);
+        
+        System.out.println("received: " + user);
     }
     
     @RabbitListener(queues = {"fanout.queue1", "fanout.queue2"})
