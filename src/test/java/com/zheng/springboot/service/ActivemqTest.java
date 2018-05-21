@@ -1,25 +1,19 @@
 package com.zheng.springboot.service;
 
-import com.zheng.springboot.Application;
 import com.zheng.springboot.message.activemq.Producer;
 import com.zheng.springboot.mybatis.domain.User;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.activemq.command.ActiveMQTopic;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * @Author Administrator
  * @Date 2018/5/21 10:26
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ActivemqTest {
+public class ActivemqTest extends BaseServiceTest {
     @Autowired
     private Producer producer;
     
