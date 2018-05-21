@@ -181,8 +181,19 @@
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
         
-        
-        
+        <!--spring activemq-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-activemq</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-pool</artifactId>
+        </dependency>
+
+
+
+
     </dependencies>
 
     <build>
