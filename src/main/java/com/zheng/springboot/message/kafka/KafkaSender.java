@@ -29,4 +29,16 @@ public class KafkaSender {
             e.printStackTrace();
         }
     }
+
+    public void send(String topic, String key, Object value) {
+        ListenableFuture future = kafkaTemplate.send(topic, key, value);
+        kafkaTemplate.flush();
+        future.addCallback(o-> System.out.println("消息发送成功: " + value),
+                throwable -> System.out.println("消息发送失败: " + value));
+        try {
+            System.in.read();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

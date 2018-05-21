@@ -27,4 +27,10 @@ public class KfakaTest {
     public void test() {
         kafkaSender.send(topicName,  "what how where");
     }
+    
+    @Test
+    public void testKV() {
+        kafkaSender.send(topicName, "hello", "what the fuck!");
+    }
+    
 }
