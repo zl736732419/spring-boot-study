@@ -3,8 +3,6 @@ package com.zheng.springboot.message.activemq;
 import com.zheng.springboot.mybatis.domain.User;
 import org.apache.activemq.command.ActiveMQObjectMessage;
 import org.apache.activemq.command.ActiveMQTextMessage;
-import org.springframework.jms.annotation.JmsListener;
-import org.springframework.stereotype.Component;
 
 import javax.jms.JMSException;
 import javax.jms.Message;
@@ -14,9 +12,9 @@ import javax.jms.Session;
  * @Author Administrator
  * @Date 2018/5/21 10:25
  */
-@Component
+//@Component
 public class Consumer {
-    @JmsListener(destination = "m2m_queue", containerFactory = "queueContainerFactory")
+//    @JmsListener(destination = "m2m_queue", containerFactory = "queueContainerFactory")
     public void customQueueMessage(Message message, Session session) throws JMSException {
         if (message instanceof ActiveMQTextMessage) {
             ActiveMQTextMessage textMessage = (ActiveMQTextMessage) message;
@@ -36,7 +34,7 @@ public class Consumer {
         message.acknowledge();
     }
 
-    @JmsListener(destination = "m2m_topic", containerFactory = "topicContainerFactory")
+//    @JmsListener(destination = "m2m_topic", containerFactory = "topicContainerFactory")
     public void customTopicMessage(Message message, Session session) throws JMSException {
         if (message instanceof ActiveMQTextMessage) {
             ActiveMQTextMessage textMessage = (ActiveMQTextMessage) message;

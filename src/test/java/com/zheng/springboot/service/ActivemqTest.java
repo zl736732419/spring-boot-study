@@ -23,9 +23,9 @@ public class ActivemqTest {
     @Autowired
     private Producer producer;
     
-    @Value("${com.zheng.test.queue}")
+    @Value("${custom.activemq.queue}")
     private String queueName;
-    @Value("${com.zheng.test.topic}")
+    @Value("${custom.activemq.topic}")
     private String topicName;
     private ActiveMQQueue queue;
     private ActiveMQTopic topic;

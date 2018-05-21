@@ -3,22 +3,18 @@ package com.zheng.springboot.message.rabbitmq;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.amqp.core.AmqpTemplate;
-import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * @Author zhenglian
  * @Date 2018/5/20 11:22
  */
-@Configuration
-@EnableRabbit
+//@Configuration
+//@EnableRabbit
 public class RabbitmqCustomer {
 
-    @Autowired
+//    @Autowired
     private RabbitTemplate rabbitTemplate;
 
     /**
@@ -30,7 +26,7 @@ public class RabbitmqCustomer {
      *
      * @return the amqp template
      */
-    @Bean
+//    @Bean
     public AmqpTemplate amqpTemplate() {
         Log log = LogFactory.getLog(RabbitmqCustomer.class);
         // 使用jackson 消息转换器

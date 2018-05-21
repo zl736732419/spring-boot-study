@@ -4,8 +4,6 @@ import com.zheng.springboot.mybatis.domain.User;
 import com.zheng.springboot.mybatis.service.UserService;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.support.CorrelationData;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
@@ -13,11 +11,11 @@ import java.util.UUID;
  * @Author zhenglian
  * @Date 2018/5/20 10:29
  */
-@Component
+//@Component
 public class RabbitmqSender {
-    @Autowired
+//    @Autowired
     private RabbitTemplate rabbitTemplate;
-    @Autowired
+//    @Autowired
     private UserService userService;
     
     public void hello() {

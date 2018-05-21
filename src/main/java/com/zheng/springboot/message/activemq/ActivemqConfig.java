@@ -2,11 +2,7 @@ package com.zheng.springboot.message.activemq;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.RedeliveryPolicy;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.jms.JmsProperties;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.core.JmsTemplate;
 
@@ -16,26 +12,26 @@ import javax.jms.DeliveryMode;
  * @Author Administrator
  * @Date 2018/5/21 10:53
  */
-@Configuration
-@EnableJms
+//@Configuration
+//@EnableJms
 public class ActivemqConfig {
 
 
 //    spring.activemq.pool.enabled=true
 //    spring.activemq.pool.max-connections=50
     
-    @Value("${spring.activemq.broker-url}")
+//    @Value("${spring.activemq.broker-url}")
     private String brokerUrl;
-    @Value("${spring.activemq.user}")
+//    @Value("${spring.activemq.user}")
     private String username;
-    @Value("${spring.activemq.password}")
+//    @Value("${spring.activemq.password}")
     private String password;
     
     /**
      * 消息重试配置项 
      * @return
      */
-    @Bean
+//    @Bean
     public RedeliveryPolicy redeliveryPolicy(){
         RedeliveryPolicy redeliveryPolicy = new RedeliveryPolicy();
         // 是否在每次失败重发时，增长等待时间  
@@ -53,7 +49,7 @@ public class ActivemqConfig {
         return redeliveryPolicy;
     }
 
-    @Bean
+//    @Bean
     public ActiveMQConnectionFactory activeMQConnectionFactory(RedeliveryPolicy redeliveryPolicy){
         ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory(username, password, brokerUrl);
         factory.setRedeliveryPolicy(redeliveryPolicy);
@@ -62,7 +58,7 @@ public class ActivemqConfig {
         return factory;
     }
     
-    @Bean
+//    @Bean
     public JmsTemplate jmsTemplate(ActiveMQConnectionFactory factory) {
         JmsTemplate jmsTemplate = new JmsTemplate();
         //设置持久化，1 非持久， 2 持久化  
@@ -78,7 +74,7 @@ public class ActivemqConfig {
         return jmsTemplate;
     }
 
-    @Bean("queueContainerFactory")
+//    @Bean("queueContainerFactory")
     public DefaultJmsListenerContainerFactory queueListener(ActiveMQConnectionFactory factory){
         DefaultJmsListenerContainerFactory listener = new DefaultJmsListenerContainerFactory();
         listener.setConnectionFactory(factory);
@@ -96,7 +92,7 @@ public class ActivemqConfig {
      * @param factory
      * @return
      */
-    @Bean("topicContainerFactory")
+//    @Bean("topicContainerFactory")
     public DefaultJmsListenerContainerFactory topicListener(ActiveMQConnectionFactory factory){
         DefaultJmsListenerContainerFactory listener = new DefaultJmsListenerContainerFactory();
         listener.setConnectionFactory(factory);

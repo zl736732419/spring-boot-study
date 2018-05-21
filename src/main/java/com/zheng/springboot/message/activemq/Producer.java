@@ -1,9 +1,7 @@
 package com.zheng.springboot.message.activemq;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
-import org.springframework.stereotype.Component;
 
 import javax.jms.Destination;
 import javax.jms.JMSException;
@@ -16,9 +14,9 @@ import java.io.Serializable;
  * @Author Administrator
  * @Date 2018/5/21 10:20
  */
-@Component
+//@Component
 public class Producer {
-    @Autowired
+//    @Autowired
     private JmsTemplate jmsTemplate;
     
     public void sendMessage(Destination destination, Serializable obj) {
